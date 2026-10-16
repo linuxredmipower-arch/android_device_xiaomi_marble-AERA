@@ -1,0 +1,68 @@
+#
+# AERA device configuration — Xiaomi marble (POCO F5 / Redmi Note 12 Turbo)
+#
+# Flags converted from the OrangeFox marble tree (fox_16.0) per the
+# AERA_* -> OF_*/TW_* translation bridge (bootable/recovery/aera_config.mk).
+#
+
+# Maintainer
+AERA_MAINTAINER := wdyd
+
+# Screen settings
+AERA_UI_ADAPTIVE_RESOLUTION := true
+AERA_SCREEN_H := 2400
+AERA_STATUS_H := 100
+AERA_HIDE_NOTCH := 1
+AERA_CLOCK_POS := 1
+AERA_STATUS_INDENT_LEFT := 48
+AERA_STATUS_INDENT_RIGHT := 48
+AERA_ALLOW_DISABLE_NAVBAR := 0
+AERA_USE_GREEN_LED := 0
+
+# Other stuff
+AERA_QUICK_BACKUP_LIST := /data;/boot;
+AERA_ENABLE_USB_STORAGE := 1
+AERA_ENABLE_LPTOOLS := 1
+AERA_NO_TREBLE_COMPATIBILITY_CHECK := 1
+AERA_DYNAMIC_FULL_SIZE := 9126805504
+AERA_OPTIONS_LIST_NUM := 9
+AERA_DISABLE_OTA_MENU := 1
+
+# A/B with dedicated recovery partition
+AERA_AB_DEVICE_WITH_RECOVERY_PARTITION := 1
+AERA_RECOVERY_AB_FULL_REFLASH_RAMDISK := 1
+
+# Data format stuff
+AERA_UNBIND_SDCARD_F2FS := 1
+AERA_WIPE_METADATA_AFTER_DATAFORMAT := 1
+AERA_BIND_MOUNT_SDCARD_ON_FORMAT := 1
+AERA_UNMOUNT_SDCARDS_BEFORE_REBOOT := 1
+AERA_FORCE_DATA_FORMAT_F2FS := 1
+AERA_LOOP_DEVICE_ERRORS_TO_LOG := 1
+AERA_USE_LZ4_COMPRESSION := 1
+AERA_ENABLE_ALL_PARTITION_TOOLS := 1
+
+ifeq ($(FIXED_DECRYPT),false)
+	AERA_SKIP_FBE_DECRYPTION := 1
+endif
+
+# Misc behavior
+AERA_USE_LOCKSCREEN_BUTTON := 1
+AERA_USE_DMCTL := 1
+AERA_DEFAULT_TIMEZONE := GMT0;BST,M3.5.0,M10.5.0
+AERA_FORCE_PREBUILT_KERNEL := 1
+AERA_USE_AIDL_BOOT_CONTROL := 1
+AERA_DISABLE_ORS_AUTO_REBOOT := 1
+AERA_FORCE_CASEFOLDING := 1
+AERA_BLOCK_OPERATIONS_AFTER_ROM_FLASH := 1
+AERA_ENABLE_FRP_WIPE := 1
+AERA_USE_LZMA_COMPRESSION := 0
+
+# TODO (device test): flashlight daemon — OFRP marble ships no flashlight script;
+# re-enable once marble LED sysfs paths are confirmed:
+#   AERA_FLASHLIGHT_ENABLE := 1
+#   AERA_FL_PATH1 := /tmp/flashlight
+
+# TODO (device test): WLAN in recovery — needs qca_cld3_*.ko in the recovery
+# module set; enable later:
+#   AERA_ENABLE_WLAN := 1
