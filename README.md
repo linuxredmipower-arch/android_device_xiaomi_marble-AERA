@@ -32,5 +32,5 @@ public AERA manifest).
 - [x] Skeleton (makefiles + transplanted content)
 - [x] First build (`mka adbd recoveryimage`, 2026-10-16): `AERA-R1.0-Beta-Unofficial-marble.img` (100MiB) + signed zip
 - [x] Flash & device test: UI / touch / FBE decrypt OK; boot loop fixed (`libsysutils` via `TARGET_USES_LOGD`)
-- [x] WLAN (QCA6490 / cnss2 + wpa_supplicant, automatic post-decrypt bring-up via `init.recovery.wifi.rc`)
+- [x] WLAN (QCA6490 / cnss2 + wpa_supplicant, automatic post-decrypt bring-up via `init.recovery.wifi.rc`) — verified in UI (scan/connect ✓, 2026-10-16)
 - [ ] TBD: flashlight daemon / board-info / (optional) cnss-daemon MAC provisioning
