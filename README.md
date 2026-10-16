@@ -30,6 +30,6 @@ public AERA manifest).
 ## Status
 
 - [x] Skeleton (makefiles + transplanted content)
-- [ ] First build (`mka adbd recoveryimage`)
+- [x] First build (`mka adbd recoveryimage`, 2026-10-16, 8m01s): `AERA-R1.0-Beta-Unofficial-marble.img` (100MiB) + signed zip
 - [ ] Flash & device test
 - [ ] TBD: GPU userspace libs / flashlight daemon / WLAN modules / board-info
