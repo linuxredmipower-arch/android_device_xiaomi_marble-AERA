@@ -1,0 +1,41 @@
+#
+# AERA WLAN bring-up — marble (QCA6490 / cnss2)
+# Adapted from the AERA peridot tree; icnss wpss flow replaced with the
+# cnss2 fs_ready flow used by kernel-melt.
+#
+
+on property:post.decrypt.modules=true
+    setprop sys.aera.wlan.up 0
+    write /dev/kmsg "[wlan] marble cnss2 bring-up"
+    start aera-wlan-init
+    start aera-wlan-ready
+
+on property:wifi.driver.ready=true
+    write /dev/kmsg "[wlan] readying wpa_supplicant"
+    mkdir /tmp/recovery 0777 root root
+    mkdir /tmp/recovery/sockets 0777 root root
+    start wpa_supplicant
+
+on property:sys.aera.wlan.up=1 && property:wifi.driver.ready=true
+    setprop sys.aera.wlan.up 0
+    mkdir /tmp/recovery 0777 root root
+    mkdir /tmp/recovery/sockets 0777 root root
+    start wpa_supplicant
+
+service aera-wlan-init /system/bin/sh -c "mkdir -p /firmware; if [ ! -e /firmware/image/qca6490/amss20.bin ]; then for m in /dev/block/bootdevice/by-name/modem /dev/block/bootdevice/by-name/modem_a /dev/block/bootdevice/by-name/modem_b; do mount -t vfat -o ro $m /firmware 2>/dev/null && break; done; fi; if ! lsmod | grep -q qca_cld3_qca6490; then for p in /tmp/vendor/lib/modules/qca_cld3_qca6490.ko /vendor/lib/modules/qca_cld3_qca6490.ko; do if [ -e $p ]; then insmod $p; break; fi; done; fi; echo 1 > /sys/kernel/cnss/fs_ready"
+    disabled
+    oneshot
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service aera-wlan-ready /system/bin/sh -c "until test -e /sys/class/net/wlan0; do sleep 1; done; setprop wifi.driver.ready true"
+    disabled
+    oneshot
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -dd -O/tmp/recovery/sockets -c/vendor/etc/wifi/wpa_supplicant.conf
+    disabled
+    seclabel u:r:recovery:s0

@@ -26,6 +26,7 @@
 #
 
 import /init.recovery.qcom_decrypt.rc
+import /init.recovery.wifi.rc
 
 on init
     start boot-hal-1-2

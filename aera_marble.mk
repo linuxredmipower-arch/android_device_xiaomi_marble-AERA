@@ -63,6 +63,8 @@ AERA_USE_LZMA_COMPRESSION := 0
 #   AERA_FLASHLIGHT_ENABLE := 1
 #   AERA_FL_PATH1 := /tmp/flashlight
 
-# TODO (device test): WLAN in recovery — needs qca_cld3_*.ko in the recovery
-# module set; enable later:
-#   AERA_ENABLE_WLAN := 1
+# WLAN (QCA6490 / cnss2): the qca driver module is loaded post-decrypt by the
+# AERA module loader; init.recovery.wifi.rc then boots the WLAN firmware via
+# the cnss2 fs_ready flow and starts wpa_supplicant.
+AERA_ENABLE_WLAN := 1
+AERA_POST_DECRYPT_MODULES := "qca_cld3_qca6490.ko"
