@@ -1,7 +1,6 @@
 # mount point   fstype  device                                          device2             flags
 # Logical partitions
 /system_image   emmc    /dev/block/mapper/system					    flags=slotselect
-/mi_ext		auto    mi_ext								    flags=display="Mi-EXT";logical
 
 # Other partitions
 /boot           emmc    /dev/block/bootdevice/by-name/boot                                  flags=slotselect
